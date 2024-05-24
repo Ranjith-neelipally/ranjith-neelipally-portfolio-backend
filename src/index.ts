@@ -8,7 +8,7 @@ app.use(express.urlencoded({ extended: false }));
 
 
 app.get("/endpoint", (req, res) => {
-  res.json({ msg: "Hello world" });
+  res.json({ msg: "Hello world and you!" });
 });
 
 app.listen(port, () => {
