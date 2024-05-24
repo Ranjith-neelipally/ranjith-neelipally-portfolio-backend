@@ -6,7 +6,7 @@ const port = 8082;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/endpoint", (req, res) => {
+app.get("/", (req, res) => {
   res.json({ msg: "Hello world and you!" });
 });
 
