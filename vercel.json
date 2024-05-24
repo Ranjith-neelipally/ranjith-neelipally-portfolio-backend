@@ -1,9 +1,14 @@
 {
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "/:path*"
-    }
-  ],
-  "outputDirectory": "dist"
-}
+    "version": 2,
+    "builds": [
+      {
+        "src": "src/index.ts",
+        "use": "@vercel/node",
+        "config": {
+          "distDir": "dist"
+        }
+      }
+    ],
+    "outputDirectory": "dist"
+  }
+  
