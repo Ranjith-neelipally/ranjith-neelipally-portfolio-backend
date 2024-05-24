@@ -4,5 +4,6 @@
       "source": "/api/:path*",
       "destination": "/:path*"
     }
-  ]
+  ],
+  "outputDirectory": "dist"
 }
