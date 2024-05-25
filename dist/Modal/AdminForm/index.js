@@ -5,18 +5,19 @@ const AdminSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        unique: true
     },
     email: {
         type: String,
         required: true,
         trim: true,
+        unique: true
     },
-    profilePhotp: {
-        data: Buffer,
-        contentType: String,
-        required: false,
+    profilePhoto: {
+        type: String,
+        trim: true,
     }
 });
-exports.default = (0, mongoose_1.model)("Admin", AdminSchema);
+exports.default = (0, mongoose_1.model)("Admin", AdminSchema, "Admin");
 //# sourceMappingURL=index.js.map
