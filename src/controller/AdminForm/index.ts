@@ -1,0 +1,26 @@
+import { RequestHandler } from "express";
+import Admin from "../../Modal/AdminForm";
+import { AdminHandler } from "../../@types/index";
+
+export const HandleAdminForm: RequestHandler = async (
+  req: AdminHandler,
+  res
+) => {
+  const { name, email, profilePhoto } = req.body;
+
+  if (name && email) {
+    const existingUser = await Admin.findOne({ email });
+    if (existingUser) {
+      return res.json({ error: "user already exist" });
+    }
+    const admin = await Admin.create({
+      name: name,
+      email: email,
+      profilePhoto,
+    });
+
+    res.status(200).json({ message: admin });
+  } else {
+    res.status(400).json({ message: "not working" });
+  }
+};
