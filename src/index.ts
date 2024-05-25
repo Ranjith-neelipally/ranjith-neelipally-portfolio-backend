@@ -15,7 +15,7 @@ app.get('/', (_req: Request, res: Response) => {
 	return res.json({ message: 'Hello World!' })
 })
 
-app.post('/check', (req:Request, res:Response )=>{
+app.get('/check', (req:Request, res:Response )=>{
 	if(mongoose.connection.readyState===1){
 		res.json({message:"connected"})
 	}else{

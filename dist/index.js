@@ -16,7 +16,7 @@ app.use(express_1.default.urlencoded({ extended: true }));
 app.get('/', (_req, res) => {
     return res.json({ message: 'Hello World!' });
 });
-app.post('/check', (req, res) => {
+app.get('/check', (req, res) => {
     if (mongoose_1.default.connection.readyState === 1) {
         res.json({ message: "connected" });
     }
