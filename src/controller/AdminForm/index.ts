@@ -13,13 +13,16 @@ export const HandleAdminForm: RequestHandler = async (
     if (existingUser) {
       return res.json({ error: "user already exist" });
     }
-    const admin = await Admin.create({
-      name: name,
-      email: email,
-      profilePhoto,
-    });
-
-    res.status(200).json({ message: admin });
+    try {
+      const admin = await Admin.create({
+        name: name,
+        email: email,
+        profilePhoto,
+      });
+      res.status(200).json({ message: admin });
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
   } else {
     res.status(400).json({ message: "not working" });
   }
