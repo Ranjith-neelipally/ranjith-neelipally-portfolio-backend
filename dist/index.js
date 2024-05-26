@@ -9,6 +9,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const AdminForm_1 = require("./controller/AdminForm");
 const validator_1 = require("./MiddleWare/validator");
 const validationSchema_1 = require("./utils/validationSchema");
+const GetAdminDetails_1 = require("./controller/GetAdminDetails");
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8083;
 app.use(express_1.default.json());
@@ -25,6 +26,7 @@ app.get('/check', (req, res) => {
     }
 });
 app.post('/adminForm', (0, validator_1.Validtor)(validationSchema_1.ValidationSchema), AdminForm_1.HandleAdminForm);
+app.get('/getAdminDetails', GetAdminDetails_1.GetAdminDetails);
 app.listen(port, () => {
     return console.log(`Server is listening on http://localhost:${port}/adminForm`);
 });
