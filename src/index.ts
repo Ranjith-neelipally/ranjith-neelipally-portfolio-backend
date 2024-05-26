@@ -12,6 +12,8 @@ const port = process.env.PORT || 8083
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get("/favicon.ico", (req, res) => res.status(204));
+
 app.get('/', (_req: Request, res: Response) => {
 	return res.json({ message: 'Hello World!' })
 })
