@@ -5,12 +5,14 @@ import { HandleAdminForm } from './controller/AdminForm';
 import { Validtor } from './MiddleWare/validator';
 import { ValidationSchema } from './utils/validationSchema';
 import { GetAdminDetails } from './controller/GetAdminDetails';
-
-
+import { IgnoreFavIcon } from './MiddleWare/favIcon';
+const cors = require("cors");
 const app = express()
 const port = process.env.PORT || 8083
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(IgnoreFavIcon);
 
 app.get("/favicon.ico", (req, res) => res.status(204));
 
