@@ -10,10 +10,14 @@ const AdminForm_1 = require("./controller/AdminForm");
 const validator_1 = require("./MiddleWare/validator");
 const validationSchema_1 = require("./utils/validationSchema");
 const GetAdminDetails_1 = require("./controller/GetAdminDetails");
+const favIcon_1 = require("./MiddleWare/favIcon");
+const cors = require("cors");
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8083;
+app.use(cors());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
+app.use(favIcon_1.IgnoreFavIcon);
 app.get("/favicon.ico", (req, res) => res.status(204));
 app.get('/', (_req, res) => {
     return res.json({ message: 'Hello World!' });
