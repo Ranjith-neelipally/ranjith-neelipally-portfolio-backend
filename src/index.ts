@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(IgnoreFavIcon);
 
-app.get("/favicon.ico", (req, res) => res.status(204));
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.get('/', (_req: Request, res: Response) => {
 	return res.json({ message: 'Hello World!' })
