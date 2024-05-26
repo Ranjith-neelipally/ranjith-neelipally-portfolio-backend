@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { HandleAdminForm } from './controller/AdminForm';
 import { Validtor } from './MiddleWare/validator';
 import { ValidationSchema } from './utils/validationSchema';
+import { GetAdminDetails } from './controller/GetAdminDetails';
 
 
 const app = express()
@@ -24,6 +25,8 @@ app.get('/check', (req:Request, res:Response )=>{
 })
 
 app.post('/adminForm',Validtor(ValidationSchema), HandleAdminForm)
+
+app.get('/getAdminDetails', GetAdminDetails)
 
 app.listen(port, () => {
 	return console.log(`Server is listening on http://localhost:${port}/adminForm`)
