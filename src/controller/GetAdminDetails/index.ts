@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import Admin from "../../Modal/AdminForm";
+import Admin from "../../Modal/Admin";
 
 export const GetAdminDetails: RequestHandler = async (req, res) => {
   const { email } = req.query;
