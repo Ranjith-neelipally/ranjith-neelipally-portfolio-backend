@@ -3,6 +3,11 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
+	"pre-commit": [
+		"ts.check",
+		"build",
+		"add-build"
+	],
 	"scripts": {
 		"start": "nodemon src/index.ts",
 		"build": "rimraf dist && tsc",
