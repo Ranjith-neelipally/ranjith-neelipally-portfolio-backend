@@ -58,11 +58,6 @@ AdminSchema.methods.comparePassword = async function (password) {
   return result;
 };
 
-// export default model("Admin", AdminSchema, "Admin") as Model<
-//   AdminDocument,
-//   {},
-//   PasswordVerificationMethod
-// >;
 const AdminModel =
   models.Admin ||
   model<AdminDocument, Model<AdminDocument, {}, PasswordVerificationMethod>>(
