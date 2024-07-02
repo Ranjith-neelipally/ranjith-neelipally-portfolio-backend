@@ -15,33 +15,36 @@ interface PasswordVerificationMethod {
   comparePassword(password: string): Promise<boolean>;
 }
 
-const AdminSchema = new Schema<AdminDocument, {}, PasswordVerificationMethod>({
-  userName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  profilePic: {
-    type: String,
-  },
-  ProjectIds: [
-    {
-      type: Schema.Types.ObjectId,
+const AdminSchema = new Schema<AdminDocument, {}, PasswordVerificationMethod>(
+  {
+    userName: {
+      type: String,
+      required: true,
+      trim: true,
     },
-  ],
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    profilePic: {
+      type: String,
+    },
+    ProjectIds: [
+      {
+        type: Schema.Types.ObjectId,
+      },
+    ],
 
-  tokens: String,
-});
+    tokens: String,
+  },
+  { collection: "Admin" }
+);
 
 AdminSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
