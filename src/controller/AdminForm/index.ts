@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
-import Admin from "../../Modal/AdminForm";
-import { AdminHandler } from "../../@types/index";
+import Admin from "../../Modal/Admin";
+import { AdminHandler } from "../../@types/Admin/index";
 
 export const HandleAdminForm: RequestHandler = async (
   req: AdminHandler,
