@@ -55,7 +55,7 @@ AdminSchema.methods.comparePassword = async function (password) {
   return result;
 };
 
-export default model("Admin", AdminSchema, "Admin") as Model<
+export default model("Admin", AdminSchema) as Model<
   AdminDocument,
   {},
   PasswordVerificationMethod

@@ -51,5 +51,5 @@ AdminSchema.methods.comparePassword = function (password) {
         return result;
     });
 };
-exports.default = (0, mongoose_1.model)("Admin", AdminSchema, "Admin");
+exports.default = (0, mongoose_1.model)("Admin", AdminSchema);
 //# sourceMappingURL=index.js.map
