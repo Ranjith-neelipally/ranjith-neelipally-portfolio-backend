@@ -1,5 +1,5 @@
 import { hash, compare } from "bcrypt";
-import { Model, ObjectId, Schema, model } from "mongoose";
+import { Model, ObjectId, Schema, model, models } from "mongoose";
 
 interface AdminDocument {
   userName: string;
@@ -55,8 +55,16 @@ AdminSchema.methods.comparePassword = async function (password) {
   return result;
 };
 
-export default model("Admin", AdminSchema, "Admin") as Model<
-  AdminDocument,
-  {},
-  PasswordVerificationMethod
->;
+// export default model("Admin", AdminSchema, "Admin") as Model<
+//   AdminDocument,
+//   {},
+//   PasswordVerificationMethod
+// >;
+const AdminModel =
+  models.Admin ||
+  model<AdminDocument, Model<AdminDocument, {}, PasswordVerificationMethod>>(
+    "Admin",
+    AdminSchema
+  );
+
+export default AdminModel;

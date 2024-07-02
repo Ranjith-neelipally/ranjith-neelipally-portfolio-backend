@@ -51,5 +51,12 @@ AdminSchema.methods.comparePassword = function (password) {
         return result;
     });
 };
-exports.default = (0, mongoose_1.model)("Admin", AdminSchema, "Admin");
+// export default model("Admin", AdminSchema, "Admin") as Model<
+//   AdminDocument,
+//   {},
+//   PasswordVerificationMethod
+// >;
+const AdminModel = mongoose_1.models.Admin ||
+    (0, mongoose_1.model)("Admin", AdminSchema);
+exports.default = AdminModel;
 //# sourceMappingURL=index.js.map
