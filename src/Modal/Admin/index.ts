@@ -20,7 +20,7 @@ const AdminSchema = new Schema<AdminDocument, {}, PasswordVerificationMethod>(
   {
     _id: {
       type: String,
-      required: true
+      required: true,
     },
     userName: {
       type: String,
@@ -69,10 +69,11 @@ AdminSchema.methods.comparePassword = async function (password) {
 // >;
 
 const AdminModel =
+  models.Admin ||
   (model("Admin", AdminSchema) as Model<
     AdminDocument,
     {},
     PasswordVerificationMethod
-  >) || models.Admin;
+  >);
 
 export default AdminModel;

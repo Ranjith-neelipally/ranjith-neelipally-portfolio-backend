@@ -14,7 +14,7 @@ const mongoose_1 = require("mongoose");
 const AdminSchema = new mongoose_1.Schema({
     _id: {
         type: String,
-        required: true
+        required: true,
     },
     userName: {
         type: String,
@@ -55,5 +55,6 @@ AdminSchema.methods.comparePassword = function (password) {
         return result;
     });
 };
-const AdminModel = (0, mongoose_1.model)("Admin", AdminSchema) || mongoose_1.models.Admin;
+const AdminModel = mongoose_1.models.Admin ||
+    (0, mongoose_1.model)("Admin", AdminSchema);
 exports.default = AdminModel;

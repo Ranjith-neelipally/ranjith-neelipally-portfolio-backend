@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import { JwtPayload, verify } from "jsonwebtoken";
 import { TOKEN_KEY } from "../../utils/variables";
 import Admin from "../../Modal/Admin";
+import { ObjectId } from "mongoose";
 
 export const verifyLoginToken: RequestHandler = async (req, res, next) => {
   const { authorization } = req.headers;
@@ -29,7 +30,7 @@ export const verifyLoginToken: RequestHandler = async (req, res, next) => {
       id: user._id,
       name: user.userName,
       verified: user.verified as boolean,
-      projects: user.ProjectIds.map((id) => id.toString()),
+      projects: user.ProjectIds.map((id:ObjectId) => id.toString()),
     };
     req.token = splitToken;
     next();
