@@ -20,7 +20,7 @@ const AdminSchema = new Schema<AdminDocument, {}, PasswordVerificationMethod>(
   {
     _id: {
       type: String,
-      required: true,
+      required: false,
     },
     userName: {
       type: String,
