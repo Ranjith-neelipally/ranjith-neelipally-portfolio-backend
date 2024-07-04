@@ -42,12 +42,8 @@ const HandleLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 });
                 yield user.save();
                 res.json({
-                    profile: {
-                        id: user._id,
-                        name: user.userName,
-                        verified: user.verified,
-                        projects: user.ProjectIds,
-                    },
+                    id: user._id,
+                    name: user.userName,
                 });
             }
         }
