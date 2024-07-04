@@ -1,10 +1,14 @@
-import { RequestHandler } from "express";
+import { RequestHandler, Response } from "express";
 import { LoginHandler } from "../../../@types/Login";
 import Admin from "../../../Modal/Admin";
 import jwt from "jsonwebtoken";
 import { TOKEN_KEY } from "../../../utils/variables";
+import { sendVerificationMail } from "../../../utils/Email";
+import emailVerificationToken from "../../../Modal/VerificationCode";
+import { generateRandomNumber } from "../../../utils/helpers";
 
-export const HandleLogin: RequestHandler = async (req: LoginHandler, res) => {
+
+export const HandleLogin: RequestHandler = async (req: LoginHandler, res: Response) => {
   const { email, password } = req.body;
   try {
     const user = await Admin.findOne({ email });
@@ -15,10 +19,20 @@ export const HandleLogin: RequestHandler = async (req: LoginHandler, res) => {
       if (!matched) {
         res.status(403).json({ error: "Password mismatch" });
       } else {
-        const jwdToken = jwt.sign({ userId: user._id }, TOKEN_KEY);
+        const verificationToken = generateRandomNumber(6);
 
-        user.tokens=jwdToken;
+        await emailVerificationToken.create({
+          owner: user._id,
+          token: verificationToken,
+        });
+
+        sendVerificationMail(verificationToken, {
+          email: user.email,
+          name: user.userName,
+          userId: user._id.toString(),
+        });
         await user.save();
+
         res.json({
           profile: {
             id: user._id,
@@ -26,7 +40,6 @@ export const HandleLogin: RequestHandler = async (req: LoginHandler, res) => {
             verified: user.verified,
             projects: user.ProjectIds,
           },
-          token: jwdToken,
         });
       }
     }

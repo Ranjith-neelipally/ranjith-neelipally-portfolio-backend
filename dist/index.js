@@ -37,4 +37,3 @@ app.get("/getAdminDetails", GetAdminDetails_1.GetAdminDetails);
 app.listen(port, () => {
     return console.log(`Server is listening on http://localhost:${port}/adminForm`);
 });
-//# sourceMappingURL=index.js.map

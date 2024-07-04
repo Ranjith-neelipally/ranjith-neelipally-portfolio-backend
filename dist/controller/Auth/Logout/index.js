@@ -19,7 +19,7 @@ const HandleLogout = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const user = yield Admin_1.default.findOne({ email });
         if (user) {
-            user.tokens = '';
+            user.tokens = [];
             yield user.save();
             res.json({
                 message: "User logged out successfully",
@@ -34,4 +34,3 @@ const HandleLogout = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.HandleLogout = HandleLogout;
-//# sourceMappingURL=index.js.map

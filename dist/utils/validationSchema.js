@@ -43,4 +43,3 @@ exports.LoginSchema = yup.object().shape({
         .email("Invalid email format!"),
     password: yup.string().trim().required("Password is required!"),
 });
-//# sourceMappingURL=validationSchema.js.map

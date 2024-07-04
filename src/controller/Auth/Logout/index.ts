@@ -6,7 +6,7 @@ export const HandleLogout: RequestHandler = async (req: Request, res) => {
   try {
     const user = await Admin.findOne({ email });
     if (user) {
-      user.tokens = '';
+      user.tokens = [];
       await user.save();
       res.json({
         message: "User logged out successfully",

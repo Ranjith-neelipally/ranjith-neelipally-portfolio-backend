@@ -35,7 +35,7 @@ const AdminSchema = new mongoose_1.Schema({
             type: mongoose_1.Schema.Types.ObjectId,
         },
     ],
-    tokens: String,
+    tokens: [String],
 }, { collection: "Admin" });
 AdminSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -51,7 +51,4 @@ AdminSchema.methods.comparePassword = function (password) {
         return result;
     });
 };
-const AdminModel = mongoose_1.models.Admin ||
-    (0, mongoose_1.model)("Admin", AdminSchema);
-exports.default = AdminModel;
-//# sourceMappingURL=index.js.map
+exports.default = (0, mongoose_1.model)("Admin", AdminSchema);

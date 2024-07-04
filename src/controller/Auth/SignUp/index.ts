@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { SignUpInterface } from "../../../../src/@types/SignUp";
+import { SignUpInterface } from "../../../@types/SignUp";
 import Admin from "../../../Modal/Admin";
 
 export const HandleSignUp: RequestHandler = async (

@@ -14,8 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HandleLogin = void 0;
 const Admin_1 = __importDefault(require("../../../Modal/Admin"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const variables_1 = require("../../../utils/variables");
+const Email_1 = require("../../../utils/Email");
+const VerificationCode_1 = __importDefault(require("../../../Modal/VerificationCode"));
+const helpers_1 = require("../../../utils/helpers");
 const HandleLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
@@ -29,8 +30,16 @@ const HandleLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 res.status(403).json({ error: "Password mismatch" });
             }
             else {
-                const jwdToken = jsonwebtoken_1.default.sign({ userId: user._id }, variables_1.TOKEN_KEY);
-                user.tokens = jwdToken;
+                const verificationToken = (0, helpers_1.generateRandomNumber)(6);
+                yield VerificationCode_1.default.create({
+                    owner: user._id,
+                    token: verificationToken,
+                });
+                (0, Email_1.sendVerificationMail)(verificationToken, {
+                    email: user.email,
+                    name: user.userName,
+                    userId: user._id.toString(),
+                });
                 yield user.save();
                 res.json({
                     profile: {
@@ -39,7 +48,6 @@ const HandleLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                         verified: user.verified,
                         projects: user.ProjectIds,
                     },
-                    token: jwdToken,
                 });
             }
         }
@@ -49,4 +57,3 @@ const HandleLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.HandleLogin = HandleLogin;
-//# sourceMappingURL=index.js.map

@@ -2,10 +2,7 @@ import { RequestHandler } from "express";
 import Admin from "../../Modal/Admin";
 import { AdminHandler } from "../../@types/Admin/index";
 
-export const HandleAdminForm: RequestHandler = async (
-  req: AdminHandler,
-  res
-) => {
+export const HandleAdminForm: RequestHandler = async (req: any, res) => {
   const { name, email, profilePhoto } = req.body;
 
   if (name && email) {

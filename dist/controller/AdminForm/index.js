@@ -38,4 +38,3 @@ const HandleAdminForm = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.HandleAdminForm = HandleAdminForm;
-//# sourceMappingURL=index.js.map

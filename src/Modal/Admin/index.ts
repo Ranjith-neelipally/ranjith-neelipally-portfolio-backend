@@ -1,14 +1,14 @@
 import { hash, compare } from "bcrypt";
 import { Model, ObjectId, Schema, model, models } from "mongoose";
 
-interface AdminDocument {
+export interface AdminDocument {
   userName: string;
   email: string;
   password: string;
   profilePic?: string;
   ProjectIds: ObjectId[];
   verified?: boolean;
-  tokens: string;
+  tokens: string[];
 }
 
 interface PasswordVerificationMethod {
@@ -40,8 +40,7 @@ const AdminSchema = new Schema<AdminDocument, {}, PasswordVerificationMethod>(
         type: Schema.Types.ObjectId,
       },
     ],
-
-    tokens: String,
+    tokens: [String],
   },
   { collection: "Admin" }
 );
@@ -58,11 +57,8 @@ AdminSchema.methods.comparePassword = async function (password) {
   return result;
 };
 
-const AdminModel =
-  models.Admin ||
-  model<AdminDocument, Model<AdminDocument, {}, PasswordVerificationMethod>>(
-    "Admin",
-    AdminSchema
-  );
-
-export default AdminModel;
+export default model("Admin", AdminSchema) as Model<
+  AdminDocument,
+  {},
+  PasswordVerificationMethod
+>;

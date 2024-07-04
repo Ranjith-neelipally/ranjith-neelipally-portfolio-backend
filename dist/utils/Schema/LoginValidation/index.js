@@ -38,4 +38,3 @@ exports.LoginValidationSchema = yup.object().shape({
         .required("Password is missing")
         .min(8, "Password is too short!"),
 });
-//# sourceMappingURL=index.js.map
