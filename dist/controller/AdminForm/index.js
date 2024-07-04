@@ -13,16 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HandleAdminForm = void 0;
-const AdminForm_1 = __importDefault(require("../../Modal/AdminForm"));
+const Admin_1 = __importDefault(require("../../Modal/Admin"));
 const HandleAdminForm = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, profilePhoto } = req.body;
     if (name && email) {
-        const existingUser = yield AdminForm_1.default.findOne({ email });
+        const existingUser = yield Admin_1.default.findOne({ email });
         if (existingUser) {
             return res.json({ error: "user already exist" });
         }
         try {
-            const admin = yield AdminForm_1.default.create({
+            const admin = yield Admin_1.default.create({
                 name: name,
                 email: email,
                 profilePhoto,
@@ -38,4 +38,3 @@ const HandleAdminForm = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.HandleAdminForm = HandleAdminForm;
-//# sourceMappingURL=index.js.map

@@ -14,4 +14,3 @@ mongoose_1.default
     .catch((err) => {
     console.error("Connection to MongoDB failed:", err);
 });
-//# sourceMappingURL=index.js.map

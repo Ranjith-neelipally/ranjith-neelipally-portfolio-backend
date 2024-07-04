@@ -54,4 +54,3 @@ const Validtor = (schema) => {
     });
 };
 exports.Validtor = Validtor;
-//# sourceMappingURL=validator.js.map

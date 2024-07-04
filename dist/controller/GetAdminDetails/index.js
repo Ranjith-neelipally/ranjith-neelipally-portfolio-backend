@@ -13,14 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetAdminDetails = void 0;
-const AdminForm_1 = __importDefault(require("../../Modal/AdminForm"));
+const Admin_1 = __importDefault(require("../../Modal/Admin"));
 const GetAdminDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.query;
-    const details = yield AdminForm_1.default.findOne({ email });
+    const details = yield Admin_1.default.findOne({ email });
     if (!details) {
         return res.json({ error: "no user found" });
     }
     res.status(200).json({ details });
 });
 exports.GetAdminDetails = GetAdminDetails;
-//# sourceMappingURL=index.js.map

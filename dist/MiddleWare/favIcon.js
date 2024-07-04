@@ -8,4 +8,3 @@ const IgnoreFavIcon = (req, res, next) => {
     next();
 };
 exports.IgnoreFavIcon = IgnoreFavIcon;
-//# sourceMappingURL=favIcon.js.map

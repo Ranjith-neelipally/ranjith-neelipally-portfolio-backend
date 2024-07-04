@@ -23,10 +23,23 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ValidationSchema = void 0;
+exports.LoginSchema = exports.ValidationSchema = void 0;
 const yup = __importStar(require("yup"));
 exports.ValidationSchema = yup.object().shape({
-    name: yup.string().trim().required("name is missing").min(3, "name is too short!"),
-    email: yup.string().required('email required!').email("invalid email!")
+    name: yup
+        .string()
+        .trim()
+        .required("Name is missing")
+        .min(3, "Name is too short!"),
+    email: yup
+        .string()
+        .required("Email is required!")
+        .email("Invalid email format!"),
 });
-//# sourceMappingURL=validationSchema.js.map
+exports.LoginSchema = yup.object().shape({
+    email: yup
+        .string()
+        .required("Email is required!")
+        .email("Invalid email format!"),
+    password: yup.string().trim().required("Password is required!"),
+});
