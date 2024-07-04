@@ -51,4 +51,5 @@ AdminSchema.methods.comparePassword = function (password) {
         return result;
     });
 };
-exports.default = (0, mongoose_1.model)("admin", AdminSchema);
+const AdminModel = (0, mongoose_1.model)("Admin", AdminSchema) || mongoose_1.models.Admin;
+exports.default = AdminModel;
