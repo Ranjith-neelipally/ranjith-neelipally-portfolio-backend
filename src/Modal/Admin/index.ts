@@ -9,7 +9,6 @@ export interface AdminDocument extends Document {
   ProjectIds: ObjectId[];
   verified?: boolean;
   tokens: string[];
-  _id: ObjectId;
 }
 
 interface PasswordVerificationMethod {
@@ -18,10 +17,6 @@ interface PasswordVerificationMethod {
 
 const AdminSchema = new Schema<AdminDocument, {}, PasswordVerificationMethod>(
   {
-    _id: {
-      type: String,
-      required: false,
-    },
     userName: {
       type: String,
       required: true,
