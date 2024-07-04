@@ -1,7 +1,7 @@
 import { hash, compare } from "bcrypt";
-import { Model, ObjectId, Schema, model, models } from "mongoose";
+import { Document, Model, ObjectId, Schema, model, models } from "mongoose";
 
-export interface AdminDocument {
+export interface AdminDocument extends Document {
   userName: string;
   email: string;
   password: string;
@@ -9,6 +9,7 @@ export interface AdminDocument {
   ProjectIds: ObjectId[];
   verified?: boolean;
   tokens: string[];
+  _id: ObjectId;
 }
 
 interface PasswordVerificationMethod {
@@ -17,6 +18,10 @@ interface PasswordVerificationMethod {
 
 const AdminSchema = new Schema<AdminDocument, {}, PasswordVerificationMethod>(
   {
+    _id: {
+      type: String,
+      required: true
+    },
     userName: {
       type: String,
       required: true,
@@ -68,6 +73,6 @@ const AdminModel =
     AdminDocument,
     {},
     PasswordVerificationMethod
-    >) || models.Admin;
-  
+  >) || models.Admin;
+
 export default AdminModel;

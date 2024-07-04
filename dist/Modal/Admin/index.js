@@ -12,6 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt_1 = require("bcrypt");
 const mongoose_1 = require("mongoose");
 const AdminSchema = new mongoose_1.Schema({
+    _id: {
+        type: String,
+        required: true
+    },
     userName: {
         type: String,
         required: true,
