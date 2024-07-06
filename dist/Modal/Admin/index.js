@@ -30,11 +30,7 @@ const AdminSchema = new mongoose_1.Schema({
     profilePic: {
         type: String,
     },
-    ProjectIds: [
-        {
-            type: mongoose_1.Schema.Types.ObjectId,
-        },
-    ],
+    ProjectIds: [String],
     tokens: [String],
 }, { collection: "Admin" });
 AdminSchema.pre("save", function (next) {

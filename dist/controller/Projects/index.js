@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DeleteProject = exports.EditProject = exports.CreateNewProject = exports.GetAllProjects = void 0;
+const AllProjects_1 = require("./AllProjects");
+Object.defineProperty(exports, "GetAllProjects", { enumerable: true, get: function () { return AllProjects_1.GetAllProjects; } });
+const CreateProject_1 = require("./CreateProject");
+Object.defineProperty(exports, "CreateNewProject", { enumerable: true, get: function () { return CreateProject_1.CreateNewProject; } });
+const EditProject_1 = require("./EditProject");
+Object.defineProperty(exports, "EditProject", { enumerable: true, get: function () { return EditProject_1.EditProject; } });
+const DeleteProject_1 = require("./DeleteProject");
+Object.defineProperty(exports, "DeleteProject", { enumerable: true, get: function () { return DeleteProject_1.DeleteProject; } });

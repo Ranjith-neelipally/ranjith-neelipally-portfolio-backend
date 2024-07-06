@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const Projects_1 = require("../../controller/Projects");
+const Project_1 = require("../../utils/Schema/Project");
+const validator_1 = require("../../MiddleWare/validator");
+const TokenVerification_1 = require("../../MiddleWare/TokenVerification");
+const ProjectsRouter = (0, express_1.Router)();
+ProjectsRouter.get("/get-all", Projects_1.GetAllProjects);
+ProjectsRouter.post("/create", TokenVerification_1.verifyLoginToken, (0, validator_1.Validtor)(Project_1.ProjectValidationSchema), Projects_1.CreateNewProject);
+ProjectsRouter.patch("/edit-project", TokenVerification_1.verifyLoginToken, (0, validator_1.Validtor)(Project_1.EditProjectValidationSchema), Projects_1.EditProject);
+ProjectsRouter.delete("/delete-project", TokenVerification_1.verifyLoginToken, Projects_1.DeleteProject);
+exports.default = ProjectsRouter;

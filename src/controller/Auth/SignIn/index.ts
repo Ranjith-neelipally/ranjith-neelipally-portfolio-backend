@@ -7,8 +7,10 @@ import { sendVerificationMail } from "../../../utils/Email";
 import emailVerificationToken from "../../../Modal/VerificationCode";
 import { generateRandomNumber } from "../../../utils/helpers";
 
-
-export const HandleLogin: RequestHandler = async (req: LoginHandler, res: Response) => {
+export const HandleLogin: RequestHandler = async (
+  req: LoginHandler,
+  res: Response
+) => {
   const { email, password } = req.body;
   try {
     const user = await Admin.findOne({ email });
@@ -34,12 +36,8 @@ export const HandleLogin: RequestHandler = async (req: LoginHandler, res: Respon
         await user.save();
 
         res.json({
-          profile: {
-            id: user._id,
-            name: user.userName,
-            verified: user.verified,
-            projects: user.ProjectIds,
-          },
+          id: user._id,
+          name: user.userName,
         });
       }
     }
