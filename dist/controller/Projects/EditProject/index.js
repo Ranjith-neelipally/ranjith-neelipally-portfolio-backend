@@ -12,21 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetAllProjects = void 0;
-const Admin_1 = __importDefault(require("../../../Modal/Admin"));
+exports.EditProject = void 0;
 const Projects_1 = __importDefault(require("../../../Modal/Projects"));
-const GetAllProjects = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email } = req.body;
+const EditProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { projectId, projectName, description, projectPreview } = req.body;
     try {
-        const user = yield Admin_1.default.findOne({ email });
-        if (!user) {
-            res.status(403).json({ error: "User not found" });
+        const project = yield Projects_1.default.findOne({ _id: projectId });
+        if (!project) {
+            res.status(403).json({ error: "Project not found" });
         }
         else {
-            let projects = yield Projects_1.default.find({ _id: { $in: user.ProjectIds } });
-            res.json(projects);
+            project.projectName = projectName;
+            project.description = description;
+            project.projectPreview = projectPreview;
+            yield project.save();
+            res.json({ message: "Project Updated" });
         }
     }
-    catch (error) { }
+    catch (error) {
+    }
 });
-exports.GetAllProjects = GetAllProjects;
+exports.EditProject = EditProject;

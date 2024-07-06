@@ -1,6 +1,20 @@
 import { RequestHandler } from "express";
 import { ProjectInterface } from "src/@types/Projects";
+import Admin from "../../../Modal/Admin";
+import Projects from "../../../Modal/Projects";
 
-export const GetAllProjects: RequestHandler = (req: ProjectInterface, res) => {
-  res.json({ message: "All Projects" });
+export const GetAllProjects: RequestHandler = async (
+  req: ProjectInterface,
+  res
+) => {
+  const { email } = req.body;
+  try {
+    const user = await Admin.findOne({ email });
+    if (!user) {
+      res.status(403).json({ error: "User not found" });
+    } else {
+      let projects = await Projects.find({ _id: { $in: user.ProjectIds } });
+      res.json(projects);
+    }
+  } catch (error) {}
 };

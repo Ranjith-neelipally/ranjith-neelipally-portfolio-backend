@@ -1,4 +1,5 @@
 import { GetAllProjects } from "./AllProjects";
 import { CreateNewProject } from "./CreateProject";
-
-export { GetAllProjects, CreateNewProject };
+import { EditProject } from "./EditProject";
+import { DeleteProject } from "./DeleteProject";
+export { GetAllProjects, CreateNewProject, EditProject, DeleteProject };
