@@ -7,7 +7,7 @@ export const GetAllProjects: RequestHandler = async (
   req: ProjectInterface,
   res
 ) => {
-  const { email } = req.body;
+  const { email } = req.query;
   try {
     const user = await Admin.findOne({ email });
     if (!user) {

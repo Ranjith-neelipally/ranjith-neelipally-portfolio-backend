@@ -16,7 +16,7 @@ exports.GetAllProjects = void 0;
 const Admin_1 = __importDefault(require("../../../Modal/Admin"));
 const Projects_1 = __importDefault(require("../../../Modal/Projects"));
 const GetAllProjects = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email } = req.body;
+    const { email } = req.query;
     try {
         const user = yield Admin_1.default.findOne({ email });
         if (!user) {
