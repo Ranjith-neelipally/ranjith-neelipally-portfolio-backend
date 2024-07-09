@@ -7,7 +7,11 @@ export const HandleSignUp: RequestHandler = async (
   res
 ) => {
   const { email, password, userName } = req.body;
+  const existingAdmin = await Admin.findOne();
   try {
+    if (existingAdmin) {
+      return res.status(400).json({ error: "Admin already exists" });
+    }
     const user = await Admin.create({
       email,
       password,

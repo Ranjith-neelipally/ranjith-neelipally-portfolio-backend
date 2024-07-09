@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const Skills_1 = require("../../controller/Skills");
+const Skills_2 = require("../../utils/Schema/Skills");
+const validator_1 = require("../../MiddleWare/validator");
+const TokenVerification_1 = require("../../MiddleWare/TokenVerification");
+const SkillRouter = (0, express_1.Router)();
+SkillRouter.get("/", Skills_1.GetAllSkills);
+SkillRouter.post("/add-skills", TokenVerification_1.verifyLoginToken, (0, validator_1.Validtor)(Skills_2.SkillsValidationSchema), Skills_1.AddSkills);
+SkillRouter.patch("/update-skills", Skills_1.UpdateSkills);
+exports.default = SkillRouter;

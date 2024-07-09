@@ -6,9 +6,11 @@ export interface AdminDocument extends Document {
   email: string;
   password: string;
   profilePic?: string;
-  ProjectIds?: string[];
   verified?: boolean;
   tokens?: string[];
+  skills?: string[];
+  ProjectIds?: string[];
+  testimonials?: string[];
 }
 
 interface PasswordVerificationMethod {
@@ -37,6 +39,8 @@ const AdminSchema = new Schema<AdminDocument, {}, PasswordVerificationMethod>(
     },
     ProjectIds: [String],
     tokens: [String],
+    skills: [String],
+    testimonials: [String],
   },
   { collection: "Admin" }
 );

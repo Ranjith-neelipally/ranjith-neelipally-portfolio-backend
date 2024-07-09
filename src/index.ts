@@ -8,6 +8,7 @@ import { GetAdminDetails } from "./controller/GetAdminDetails";
 import { IgnoreFavIcon } from "./MiddleWare/favIcon";
 import AuthRouter from "./router/Auth";
 import ProjectsRouter from "./router/Projects";
+import SkillRouter from "./router/Skills";
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 8083;
@@ -32,6 +33,7 @@ app.get("/check", (req: Request, res: Response) => {
 
 app.use("/auth", AuthRouter);
 app.use("/projects", ProjectsRouter);
+app.use("/skills", SkillRouter);
 
 app.post("/adminForm", Validtor(ValidationSchema), HandleAdminForm);
 

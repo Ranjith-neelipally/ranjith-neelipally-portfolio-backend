@@ -12,29 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HandleSignUp = void 0;
+exports.GetProjectDetails = void 0;
+const Projects_1 = __importDefault(require("../../../Modal/Projects"));
 const Admin_1 = __importDefault(require("../../../Modal/Admin"));
-const HandleSignUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password, userName } = req.body;
-    const existingAdmin = yield Admin_1.default.findOne();
+const GetProjectDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { projectId, email } = req.query;
+    const user = yield Admin_1.default.findOne({ email });
+    if (!user) {
+        res.status(404).json({ error: "User not found" });
+    }
     try {
-        if (existingAdmin) {
-            return res.status(400).json({ error: "Admin already exists" });
-        }
-        const user = yield Admin_1.default.create({
-            email,
-            password,
-            userName,
-        });
-        if (user) {
-            res.json({ message: "User created successfully" });
+        if (user.ProjectIds.length > 0 && user.ProjectIds.includes(projectId)) {
+            const project = yield Projects_1.default.findOne({ _id: projectId });
+            if (!project) {
+                res.status(404).json({ error: "Project not found" });
+            }
+            res.json(project);
         }
         else {
-            res.status(500).json({ error: "User not created" });
+            res.status(404).json({ error: "Project not found" });
         }
     }
     catch (error) {
         res.status(500).json({ error: error });
     }
 });
-exports.HandleSignUp = HandleSignUp;
+exports.GetProjectDetails = GetProjectDetails;

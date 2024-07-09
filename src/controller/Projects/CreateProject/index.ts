@@ -34,7 +34,6 @@ export const CreateNewProject: RequestHandler = async (
     res.json({
       message: "Project created successfully",
       Project: newProject,
-      user: user,
     });
   } catch (error) {
     res.status(500).json({ error: error });
