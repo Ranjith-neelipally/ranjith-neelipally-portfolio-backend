@@ -4,6 +4,7 @@ import {
   CreateNewProject,
   EditProject,
   DeleteProject,
+  GetProjectDetails,
 } from "../../controller/Projects";
 import {
   EditProjectValidationSchema,
@@ -15,6 +16,7 @@ import { verifyLoginToken } from "../../MiddleWare/TokenVerification";
 const ProjectsRouter = Router();
 
 ProjectsRouter.get("/get-all", GetAllProjects);
+ProjectsRouter.get("/get-project", GetProjectDetails);
 ProjectsRouter.post(
   "/create",
   verifyLoginToken,

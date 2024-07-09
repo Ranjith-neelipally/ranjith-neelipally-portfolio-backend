@@ -32,6 +32,8 @@ const AdminSchema = new mongoose_1.Schema({
     },
     ProjectIds: [String],
     tokens: [String],
+    skills: [String],
+    testimonials: [String],
 }, { collection: "Admin" });
 AdminSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {

@@ -40,7 +40,6 @@ const CreateNewProject = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.json({
             message: "Project created successfully",
             Project: newProject,
-            user: user,
         });
     }
     catch (error) {

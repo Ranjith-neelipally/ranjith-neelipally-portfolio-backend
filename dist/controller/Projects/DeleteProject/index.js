@@ -38,7 +38,7 @@ const DeleteProject = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 if (!status) {
                     return res.json({ error: "Project not deleted" });
                 }
-                return res.json({ status });
+                return res.json({ message: "Project deleted" });
             }
         }
         return res.json({ message: "user found" });

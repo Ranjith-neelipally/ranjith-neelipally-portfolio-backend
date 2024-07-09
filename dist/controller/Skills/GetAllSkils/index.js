@@ -12,29 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HandleSignUp = void 0;
+exports.GetAllSkills = void 0;
 const Admin_1 = __importDefault(require("../../../Modal/Admin"));
-const HandleSignUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password, userName } = req.body;
-    const existingAdmin = yield Admin_1.default.findOne();
-    try {
-        if (existingAdmin) {
-            return res.status(400).json({ error: "Admin already exists" });
-        }
-        const user = yield Admin_1.default.create({
-            email,
-            password,
-            userName,
-        });
-        if (user) {
-            res.json({ message: "User created successfully" });
-        }
-        else {
-            res.status(500).json({ error: "User not created" });
-        }
+const Skills_1 = __importDefault(require("../../../Modal/Skills"));
+const GetAllSkills = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.body;
+    const user = yield Admin_1.default.findOne({ email });
+    if (!user) {
+        return res.status(400).json({ message: "User not found" });
     }
-    catch (error) {
-        res.status(500).json({ error: error });
-    }
+    const allSkills = yield Skills_1.default.findOne({ _id: { $in: user.skills } });
+    return res.status(200).json({ message: "User found", allSkills });
 });
-exports.HandleSignUp = HandleSignUp;
+exports.GetAllSkills = GetAllSkills;

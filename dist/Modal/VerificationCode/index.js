@@ -15,7 +15,6 @@ const emailVerificationTokenSchema = new mongoose_1.Schema({
     owner: {
         type: mongoose_1.Schema.Types.ObjectId,
         required: true,
-        ref: "User",
     },
     token: {
         type: String,

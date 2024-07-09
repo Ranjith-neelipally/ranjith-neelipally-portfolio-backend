@@ -13,6 +13,7 @@ const GetAdminDetails_1 = require("./controller/GetAdminDetails");
 const favIcon_1 = require("./MiddleWare/favIcon");
 const Auth_1 = __importDefault(require("./router/Auth"));
 const Projects_1 = __importDefault(require("./router/Projects"));
+const Skills_1 = __importDefault(require("./router/Skills"));
 const cors = require("cors");
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8083;
@@ -34,6 +35,7 @@ app.get("/check", (req, res) => {
 });
 app.use("/auth", Auth_1.default);
 app.use("/projects", Projects_1.default);
+app.use("/skills", Skills_1.default);
 app.post("/adminForm", (0, validator_1.Validtor)(validationSchema_1.ValidationSchema), AdminForm_1.HandleAdminForm);
 app.get("/getAdminDetails", GetAdminDetails_1.GetAdminDetails);
 app.listen(port, () => {

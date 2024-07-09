@@ -31,7 +31,7 @@ export const DeleteProject: RequestHandler = async (
           return res.json({ error: "Project not deleted" });
         }
 
-        return res.json({ status });
+        return res.json({ message: "Project deleted" });
       }
     }
     return res.json({ message: "user found" });
