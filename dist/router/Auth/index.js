@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const validator_1 = require("../../../src/MiddleWare/validator");
+const validator_1 = require("../../MiddleWare/Validator/validator");
 const LoginValidation_1 = require("../../utils/Schema/LoginValidation");
 const Auth_1 = require("../../../src/controller/Auth");
 const TokenVerification_1 = require("../../MiddleWare/TokenVerification");

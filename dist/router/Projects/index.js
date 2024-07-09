@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Projects_1 = require("../../controller/Projects");
 const Project_1 = require("../../utils/Schema/Project");
-const validator_1 = require("../../MiddleWare/validator");
+const validator_1 = require("../../MiddleWare/Validator/validator");
 const TokenVerification_1 = require("../../MiddleWare/TokenVerification");
 const ProjectsRouter = (0, express_1.Router)();
 ProjectsRouter.get("/get-all", Projects_1.GetAllProjects);

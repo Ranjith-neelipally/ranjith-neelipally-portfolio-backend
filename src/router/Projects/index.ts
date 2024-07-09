@@ -10,7 +10,7 @@ import {
   EditProjectValidationSchema,
   ProjectValidationSchema,
 } from "../../utils/Schema/Project";
-import { Validtor } from "../../MiddleWare/validator";
+import { Validtor } from "../../MiddleWare/Validator/validator";
 import { verifyLoginToken } from "../../MiddleWare/TokenVerification";
 
 const ProjectsRouter = Router();

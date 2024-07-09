@@ -5,39 +5,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 require("./database");
-const mongoose_1 = __importDefault(require("mongoose"));
-const AdminForm_1 = require("./controller/AdminForm");
-const validator_1 = require("./MiddleWare/validator");
-const validationSchema_1 = require("./utils/validationSchema");
-const GetAdminDetails_1 = require("./controller/GetAdminDetails");
-const favIcon_1 = require("./MiddleWare/favIcon");
-const Auth_1 = __importDefault(require("./router/Auth"));
-const Projects_1 = __importDefault(require("./router/Projects"));
-const Skills_1 = __importDefault(require("./router/Skills"));
+const MiddleWare_1 = require("./MiddleWare");
+const router_1 = require("./router");
+const Check_1 = require("./controller/Check");
 const cors = require("cors");
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8083;
 app.use(cors());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-app.use(favIcon_1.IgnoreFavIcon);
+app.use(MiddleWare_1.IgnoreFavIcon);
 app.get("/favicon.ico", (req, res) => res.status(204).end());
-app.get("/", (_req, res) => {
-    return res.json({ message: "Hello World!" });
-});
-app.get("/check", (req, res) => {
-    if (mongoose_1.default.connection.readyState === 1) {
-        res.json({ message: "connected" });
-    }
-    else {
-        res.json({ message: "not connected" });
-    }
-});
-app.use("/auth", Auth_1.default);
-app.use("/projects", Projects_1.default);
-app.use("/skills", Skills_1.default);
-app.post("/adminForm", (0, validator_1.Validtor)(validationSchema_1.ValidationSchema), AdminForm_1.HandleAdminForm);
-app.get("/getAdminDetails", GetAdminDetails_1.GetAdminDetails);
+app.get("/", Check_1.Home);
+app.get("/check", Check_1.CheckDbConnection);
+app.use("/auth", router_1.AuthRouter);
+app.use("/projects", router_1.ProjectsRouter);
+app.use("/skills", router_1.SkillRouter);
+app.use("/testimonials", router_1.TestimonialsRouter);
 app.listen(port, () => {
-    return console.log(`Server is listening on http://localhost:${port}/adminForm`);
+    return console.log(`Server is listening on http://localhost:${port}/testimonials`);
 });

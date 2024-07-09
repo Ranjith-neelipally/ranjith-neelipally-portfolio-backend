@@ -12,14 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetAdminDetails = void 0;
-const Admin_1 = __importDefault(require("../../Modal/Admin"));
-const GetAdminDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email } = req.query;
-    const details = yield Admin_1.default.findOne({ email });
-    if (!details) {
-        return res.json({ error: "no user found" });
-    }
-    res.status(200).json({ details });
+exports.CheckDbConnection = exports.Home = void 0;
+const mongoose_1 = __importDefault(require("mongoose"));
+const Home = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    return res.status(200).json({ message: "Hello World!" });
 });
-exports.GetAdminDetails = GetAdminDetails;
+exports.Home = Home;
+const CheckDbConnection = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (mongoose_1.default.connection.readyState === 1) {
+        res.json({ message: "connected" });
+    }
+    else {
+        res.json({ message: "not connected" });
+    }
+});
+exports.CheckDbConnection = CheckDbConnection;

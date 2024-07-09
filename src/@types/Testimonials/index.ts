@@ -5,5 +5,5 @@ export interface TestimonialsInterface extends Request {
   email?: string;
   designation?: string;
   message?: string;
-  temporaryOtp?: string;
+  canEdit?: boolean;
 }

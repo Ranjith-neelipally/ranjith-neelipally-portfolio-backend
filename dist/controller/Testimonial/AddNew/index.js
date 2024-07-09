@@ -12,29 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HandleAdminForm = void 0;
-const Admin_1 = __importDefault(require("../../Modal/Admin"));
-const HandleAdminForm = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, profilePhoto } = req.body;
-    if (name && email) {
-        const existingUser = yield Admin_1.default.findOne({ email });
-        if (existingUser) {
-            return res.json({ error: "user already exist" });
+exports.AddNewTestimonial = void 0;
+const Testimonials_1 = __importDefault(require("../../../Modal/Testimonials"));
+const AddNewTestimonial = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userName, email, designation, message } = req.body;
+    try {
+        const newTesto = yield Testimonials_1.default.create({
+            userName,
+            email,
+            designation,
+            message,
+        });
+        if (!newTesto) {
+            return res.status(400).send("Failed to add testimonial");
         }
-        try {
-            const admin = yield Admin_1.default.create({
-                name: name,
-                email: email,
-                profilePhoto,
-            });
-            res.status(200).json({ message: admin });
-        }
-        catch (error) {
-            res.status(500).json({ error: error });
-        }
+        res.status(201).send("Testimonial added successfully");
     }
-    else {
-        res.status(400).json({ message: "not working" });
+    catch (error) {
+        res.status(500).send(error);
     }
 });
-exports.HandleAdminForm = HandleAdminForm;
+exports.AddNewTestimonial = AddNewTestimonial;

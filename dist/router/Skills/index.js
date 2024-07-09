@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Skills_1 = require("../../controller/Skills");
 const Skills_2 = require("../../utils/Schema/Skills");
-const validator_1 = require("../../MiddleWare/validator");
+const validator_1 = require("../../MiddleWare/Validator/validator");
 const TokenVerification_1 = require("../../MiddleWare/TokenVerification");
 const SkillRouter = (0, express_1.Router)();
 SkillRouter.get("/", Skills_1.GetAllSkills);

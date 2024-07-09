@@ -22,9 +22,9 @@ const TestimonialsSchems = new Schema<TestimonialsInterface>({
     required: true,
     trim: true,
   },
-  temporaryOtp: {
-    type: String,
-    required: false,
+  canEdit: {
+    type: Boolean,
+    default: false,
   },
 });
 

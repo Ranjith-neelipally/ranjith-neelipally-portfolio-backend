@@ -1,14 +1,14 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import "./database";
-import mongoose from "mongoose";
-import { HandleAdminForm } from "./controller/AdminForm";
-import { Validtor } from "./MiddleWare/validator";
-import { ValidationSchema } from "./utils/validationSchema";
-import { GetAdminDetails } from "./controller/GetAdminDetails";
-import { IgnoreFavIcon } from "./MiddleWare/favIcon";
-import AuthRouter from "./router/Auth";
-import ProjectsRouter from "./router/Projects";
-import SkillRouter from "./router/Skills";
+import { IgnoreFavIcon } from "./MiddleWare";
+import {
+  AuthRouter,
+  ProjectsRouter,
+  SkillRouter,
+  TestimonialsRouter,
+} from "./router";
+import { CheckDbConnection, Home } from "./controller/Check";
+
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 8083;
@@ -19,28 +19,17 @@ app.use(IgnoreFavIcon);
 
 app.get("/favicon.ico", (req, res) => res.status(204).end());
 
-app.get("/", (_req: Request, res: Response) => {
-  return res.json({ message: "Hello World!" });
-});
+app.get("/", Home);
 
-app.get("/check", (req: Request, res: Response) => {
-  if (mongoose.connection.readyState === 1) {
-    res.json({ message: "connected" });
-  } else {
-    res.json({ message: "not connected" });
-  }
-});
+app.get("/check", CheckDbConnection);
 
 app.use("/auth", AuthRouter);
 app.use("/projects", ProjectsRouter);
 app.use("/skills", SkillRouter);
-
-app.post("/adminForm", Validtor(ValidationSchema), HandleAdminForm);
-
-app.get("/getAdminDetails", GetAdminDetails);
+app.use("/testimonials", TestimonialsRouter);
 
 app.listen(port, () => {
   return console.log(
-    `Server is listening on http://localhost:${port}/adminForm`
+    `Server is listening on http://localhost:${port}/testimonials`
   );
 });

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Validtor } from "../../../src/MiddleWare/validator";
+import { Validtor } from "../../MiddleWare/Validator/validator";
 import { LoginValidationSchema } from "../../utils/Schema/LoginValidation";
 import {
   HandleSignUp,

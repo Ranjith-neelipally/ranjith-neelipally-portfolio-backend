@@ -22,9 +22,9 @@ const TestimonialsSchems = new mongoose_1.Schema({
         required: true,
         trim: true,
     },
-    temporaryOtp: {
-        type: String,
-        required: false,
+    canEdit: {
+        type: Boolean,
+        default: false,
     },
 });
 exports.default = (0, mongoose_1.model)("Testimonials", TestimonialsSchems);
