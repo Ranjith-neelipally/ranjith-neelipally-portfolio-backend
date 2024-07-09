@@ -16,7 +16,7 @@ exports.GetAllSkills = void 0;
 const Admin_1 = __importDefault(require("../../../Modal/Admin"));
 const Skills_1 = __importDefault(require("../../../Modal/Skills"));
 const GetAllSkills = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email } = req.body;
+    const { email } = req.query;
     const user = yield Admin_1.default.findOne({ email });
     if (!user) {
         return res.status(400).json({ message: "User not found" });
