@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   AddNewTestimonial,
   DeleteTestimonial,
-  UpdateTestimonial,
+  // UpdateTestimonial,
   VerifyOTP,
 } from "../../controller/Testimonial";
 import { Validtor, verifyLoginToken } from "../../MiddleWare";
@@ -21,7 +21,7 @@ TestimonialsRouter.post(
 );
 
 TestimonialsRouter.delete("/delete", verifyLoginToken, DeleteTestimonial);
-TestimonialsRouter.post("/update", UpdateTestimonial);
+// TestimonialsRouter.post("/update", UpdateTestimonial);
 TestimonialsRouter.patch("/verify-and-update", VerifyOTP);
 
 export default TestimonialsRouter;
