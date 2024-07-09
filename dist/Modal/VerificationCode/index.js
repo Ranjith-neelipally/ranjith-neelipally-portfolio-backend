@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const bcrypt_1 = require("bcrypt");
-const emailVerificationTokenSchema = new mongoose_1.Schema({
+const EmailVerificationTokenSchema = new mongoose_1.Schema({
     owner: {
         type: mongoose_1.Schema.Types.ObjectId,
         required: true,
@@ -26,7 +26,7 @@ const emailVerificationTokenSchema = new mongoose_1.Schema({
         default: Date.now(),
     },
 });
-emailVerificationTokenSchema.pre("save", function (next) {
+EmailVerificationTokenSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (this.isModified("token")) {
             this.token = yield (0, bcrypt_1.hash)(this.token, 10);
@@ -34,10 +34,12 @@ emailVerificationTokenSchema.pre("save", function (next) {
         next();
     });
 });
-emailVerificationTokenSchema.methods.compareToken = function (token) {
+EmailVerificationTokenSchema.methods.compareToken = function (token) {
     return __awaiter(this, void 0, void 0, function* () {
         const result = yield (0, bcrypt_1.compare)(token, this.token);
         return result;
     });
 };
-exports.default = (0, mongoose_1.model)("emailVerificationToken", emailVerificationTokenSchema);
+const EmailVerificationToken = mongoose_1.models.EmailVerificationToken ||
+    (0, mongoose_1.model)("EmailVerificationToken", EmailVerificationTokenSchema);
+exports.default = EmailVerificationToken;

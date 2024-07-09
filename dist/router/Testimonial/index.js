@@ -10,5 +10,6 @@ TestimonialsRouter.post("/", (req, res) => {
 });
 TestimonialsRouter.post("/add-new", (0, MiddleWare_1.Validtor)(Schema_1.TestimonialValidationSchema), Testimonial_1.AddNewTestimonial);
 TestimonialsRouter.delete("/delete", MiddleWare_1.verifyLoginToken, Testimonial_1.DeleteTestimonial);
+TestimonialsRouter.post("/update", Testimonial_1.UpdateTestimonial);
 TestimonialsRouter.patch("/verify-and-update", Testimonial_1.VerifyOTP);
 exports.default = TestimonialsRouter;
