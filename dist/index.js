@@ -20,6 +20,7 @@ app.use(MiddleWare_1.IgnoreFavIcon);
 app.get("/favicon.ico", (req, res) => res.status(204).end());
 app.get("/", Check_1.Home);
 app.get("/check", Check_1.CheckDbConnection);
+app.use("/get-admin", router_1.AdminRouter);
 app.use("/auth", router_1.AuthRouter);
 app.use("/projects", router_1.ProjectsRouter);
 app.use("/skills", router_1.SkillRouter);

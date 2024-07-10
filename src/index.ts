@@ -2,6 +2,7 @@ import express from "express";
 import "./database";
 import { IgnoreFavIcon } from "./MiddleWare";
 import {
+  AdminRouter,
   AuthRouter,
   ProjectsRouter,
   SkillRouter,
@@ -25,6 +26,7 @@ app.get("/", Home);
 
 app.get("/check", CheckDbConnection);
 
+app.use("/get-admin", AdminRouter);
 app.use("/auth", AuthRouter);
 app.use("/projects", ProjectsRouter);
 app.use("/skills", SkillRouter);
