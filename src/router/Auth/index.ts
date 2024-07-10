@@ -6,6 +6,7 @@ import {
   HandleLogin,
   HandleLogout,
   VerifyOTP,
+  UpdateAdminDetails,
 } from "../../../src/controller/Auth";
 import { verifyLoginToken } from "../../MiddleWare/TokenVerification";
 
@@ -22,5 +23,7 @@ AuthRouter.post("/logout", HandleLogout);
 AuthRouter.post("/verify-token", verifyLoginToken, (req, res) => {
   res.status(200).json({ response: "Authorized Request!" });
 });
+
+AuthRouter.patch("/update-details", verifyLoginToken, UpdateAdminDetails);
 
 export default AuthRouter;

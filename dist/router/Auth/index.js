@@ -13,4 +13,5 @@ AuthRouter.post("/logout", Auth_1.HandleLogout);
 AuthRouter.post("/verify-token", TokenVerification_1.verifyLoginToken, (req, res) => {
     res.status(200).json({ response: "Authorized Request!" });
 });
+AuthRouter.patch("/update-details", TokenVerification_1.verifyLoginToken, Auth_1.UpdateAdminDetails);
 exports.default = AuthRouter;

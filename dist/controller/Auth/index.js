@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VerifyOTP = exports.HandleLogout = exports.HandleSignUp = exports.HandleLogin = void 0;
+exports.UpdateAdminDetails = exports.VerifyOTP = exports.HandleLogout = exports.HandleSignUp = exports.HandleLogin = void 0;
 const SignIn_1 = require("./SignIn");
 Object.defineProperty(exports, "HandleLogin", { enumerable: true, get: function () { return SignIn_1.HandleLogin; } });
 const SignUp_1 = require("./SignUp");
@@ -9,3 +9,5 @@ const Logout_1 = require("./Logout");
 Object.defineProperty(exports, "HandleLogout", { enumerable: true, get: function () { return Logout_1.HandleLogout; } });
 const VerifyOTP_1 = require("./VerifyOTP");
 Object.defineProperty(exports, "VerifyOTP", { enumerable: true, get: function () { return VerifyOTP_1.VerifyOTP; } });
+const UpdateAdmin_1 = require("./UpdateAdmin");
+Object.defineProperty(exports, "UpdateAdminDetails", { enumerable: true, get: function () { return UpdateAdmin_1.UpdateAdminDetails; } });

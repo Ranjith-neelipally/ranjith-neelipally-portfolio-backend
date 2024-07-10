@@ -8,9 +8,11 @@ import {
   TestimonialsRouter,
 } from "./router";
 import { CheckDbConnection, Home } from "./controller/Check";
+import bodyParser from "body-parser";
 
 const cors = require("cors");
 const app = express();
+app.use(bodyParser.json({ limit: "10mb" }));
 const port = process.env.PORT || 8083;
 app.use(cors());
 app.use(express.json());
