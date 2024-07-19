@@ -5,4 +5,5 @@ const AdminRouter = Router()
 
 AdminRouter.get("/", GetAdminDetails)
 
+
 export default AdminRouter
