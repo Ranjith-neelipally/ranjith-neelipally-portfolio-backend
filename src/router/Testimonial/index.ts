@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   AddNewTestimonial,
   DeleteTestimonial,
+  GetAllTestimonials,
   UpdateTestimonial,
   VerifyOTP,
 } from "../../controller/Testimonial";
@@ -10,9 +11,7 @@ import { TestimonialValidationSchema } from "../../utils/Schema";
 
 const TestimonialsRouter = Router();
 
-TestimonialsRouter.post("/", (req, res) => {
-  res.send("Testimonial Home");
-});
+TestimonialsRouter.get("/", GetAllTestimonials);
 
 TestimonialsRouter.post(
   "/add-new",

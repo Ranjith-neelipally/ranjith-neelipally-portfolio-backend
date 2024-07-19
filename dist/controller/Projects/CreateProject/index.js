@@ -17,7 +17,7 @@ const Admin_1 = __importDefault(require("../../../Modal/Admin"));
 const Projects_1 = __importDefault(require("../../../Modal/Projects"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const CreateNewProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId, projectName, description, projectPreview } = req.body;
+    const { userId, projectName, description, projectPreview, tag } = req.body;
     if (!mongoose_1.default.Types.ObjectId.isValid(userId)) {
         return res.status(400).json({ message: "Invalid userId" });
     }
@@ -31,6 +31,7 @@ const CreateNewProject = (req, res) => __awaiter(void 0, void 0, void 0, functio
             description,
             projectPreview,
             userId,
+            tag,
         });
         if (!newProject) {
             res.status(500).json({ message: "Project not created" });

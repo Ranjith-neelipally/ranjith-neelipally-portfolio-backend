@@ -21,6 +21,10 @@ const ProjectSchema = new Schema<ProjectInterface>({
     type: String,
     required: false,
   },
+  tag: {
+    type: String,
+    required: false,
+  },
 });
 
 export default model("Project", ProjectSchema) as Model<ProjectInterface>;

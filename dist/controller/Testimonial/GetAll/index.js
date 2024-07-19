@@ -12,36 +12,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddNewTestimonial = void 0;
-const Testimonials_1 = __importDefault(require("../../../Modal/Testimonials"));
+exports.GetAllTestimonials = void 0;
 const Admin_1 = __importDefault(require("../../../Modal/Admin"));
-const AddNewTestimonial = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userName, email, designation, message, adminMail } = req.body;
+const Testimonials_1 = __importDefault(require("../../../Modal/Testimonials"));
+const GetAllTestimonials = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.query;
     try {
-        const user = yield Admin_1.default.findOne({ email: adminMail });
+        const user = yield Admin_1.default.findOne({ email });
         if (!user) {
             return res.status(400).json({ message: "User not found" });
         }
-        const newTestimonial = yield Testimonials_1.default.create({
-            userName,
-            email,
-            designation,
-            message,
+        const testimonials = yield Testimonials_1.default.find({
+            _id: { $in: user.testimonials },
         });
-        if (!newTestimonial) {
-            return res.status(400).send("Failed to add testimonial");
+        if (!testimonials) {
+            return res.status(400).json({ message: "Testimonials not found" });
         }
-        const updatedUser = yield user.testimonials.push(newTestimonial._id);
-        if (!updatedUser) {
-            return res.status(400).send("Failed to update user");
-        }
-        if (updatedUser) {
-            yield user.save();
-        }
-        res.status(201).send("Testimonial added successfully");
+        return res.status(200).json(testimonials);
     }
     catch (error) {
-        res.status(500).send(error);
+        res.status(500).json(error);
     }
 });
-exports.AddNewTestimonial = AddNewTestimonial;
+exports.GetAllTestimonials = GetAllTestimonials;

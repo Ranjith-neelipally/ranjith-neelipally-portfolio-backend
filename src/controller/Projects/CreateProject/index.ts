@@ -8,7 +8,7 @@ export const CreateNewProject: RequestHandler = async (
   req: ProjectInterface,
   res
 ) => {
-  const { userId, projectName, description, projectPreview } = req.body;
+  const { userId, projectName, description, projectPreview, tag } = req.body;
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ message: "Invalid userId" });
   }
@@ -22,6 +22,7 @@ export const CreateNewProject: RequestHandler = async (
       description,
       projectPreview,
       userId,
+      tag,
     });
 
     if (!newProject) {

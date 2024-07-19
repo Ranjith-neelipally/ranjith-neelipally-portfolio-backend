@@ -21,5 +21,9 @@ const ProjectSchema = new mongoose_1.Schema({
         type: String,
         required: false,
     },
+    tag: {
+        type: String,
+        required: false,
+    },
 });
 exports.default = (0, mongoose_1.model)("Project", ProjectSchema);

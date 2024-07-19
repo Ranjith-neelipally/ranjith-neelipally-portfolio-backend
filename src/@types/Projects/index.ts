@@ -5,4 +5,5 @@ export interface ProjectInterface extends Request {
   description?: string;
   projectPreview?: string;
   userId?: string;
+  tag?: string;
 }

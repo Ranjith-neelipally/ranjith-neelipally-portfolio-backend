@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EditProject = void 0;
 const Projects_1 = __importDefault(require("../../../Modal/Projects"));
 const EditProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { projectId, projectName, description, projectPreview } = req.body;
+    const { projectId, projectName, description, projectPreview, tag } = req.body;
     try {
         const project = yield Projects_1.default.findOne({ _id: projectId });
         if (!project) {
@@ -25,11 +25,11 @@ const EditProject = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             project.projectName = projectName;
             project.description = description;
             project.projectPreview = projectPreview;
+            project.tag = tag;
             yield project.save();
             res.json({ message: "Project Updated" });
         }
     }
-    catch (error) {
-    }
+    catch (error) { }
 });
 exports.EditProject = EditProject;

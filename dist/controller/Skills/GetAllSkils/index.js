@@ -22,6 +22,6 @@ const GetAllSkills = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         return res.status(400).json({ message: "User not found" });
     }
     const allSkills = yield Skills_1.default.findOne({ _id: { $in: user.skills } });
-    return res.status(200).json({ message: "User found", allSkills });
+    return res.status(200).json(allSkills);
 });
 exports.GetAllSkills = GetAllSkills;
