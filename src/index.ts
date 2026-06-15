@@ -1,5 +1,5 @@
 import express from "express";
-import "./database";
+import dbConnect from "./database";
 import { IgnoreFavIcon } from "./MiddleWare";
 import {
   AdminRouter,
@@ -22,6 +22,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(IgnoreFavIcon);
+
+// Ensure database is connected before handling requests
+app.use(async (req, res, next) => {
+  try {
+    await dbConnect();
+    next();
+  } catch (err) {
+    console.error("Database connection failed during request:", err);
+    res.status(500).json({ error: "Database connection failed" });
+  }
+});
 
 app.get("/favicon.ico", (req, res) => res.status(204).end());
 
