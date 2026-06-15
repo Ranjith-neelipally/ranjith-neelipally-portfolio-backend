@@ -37,8 +37,8 @@ app.use("/projects", ProjectsRouter);
 app.use("/skills", SkillRouter);
 app.use("/testimonials", TestimonialsRouter);
 
-app.listen(port, () => {
-  return console.log(
-    `Server is listening on http://localhost:${port}/testimonials`
-  );
-});
+// app.listen(port, () => {
+//   return console.log(
+//     `Server is listening on http://localhost:${port}/testimonials`
+//   );
+// });
