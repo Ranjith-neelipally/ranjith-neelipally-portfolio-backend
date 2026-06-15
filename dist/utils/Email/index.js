@@ -17,6 +17,20 @@ const VerificationMai_1 = require("../Email/template/VerificationMai");
 const variables_1 = require("../variables");
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const generateMailTransporter = () => {
+    if (!variables_1.MAILTRAP_USER || !variables_1.MAILTRAP_PASSWORD) {
+        console.warn("Mailtrap credentials missing in .env. Email sending bypassed.");
+        return {
+            sendMail: (options) => {
+                console.log("====================================[EMAIL BYPASS]====================================");
+                console.log(`To: ${options.to}`);
+                console.log(`From: ${options.from}`);
+                console.log(`Subject: ${options.subject || "Verification Mail"}`);
+                console.log(`Message: ${options.html}`);
+                console.log("======================================================================================");
+                return Promise.resolve();
+            }
+        };
+    }
     const transporter = nodemailer_1.default.createTransport({
         host: "sandbox.smtp.mailtrap.io",
         port: 2525,
@@ -28,17 +42,23 @@ const generateMailTransporter = () => {
     return transporter;
 };
 const sendVerificationMail = (token, profile) => __awaiter(void 0, void 0, void 0, function* () {
-    const transport = generateMailTransporter();
-    const { name, email, userId } = profile;
-    transport.sendMail({
-        to: email,
-        from: variables_1.ADMIN_MAIL,
-        html: (0, VerificationMai_1.Email)({
-            Otp: `Your OTP: ${token}`,
-            userName: name,
+    try {
+        const transport = generateMailTransporter();
+        const { name, email, userId } = profile;
+        yield transport.sendMail({
+            to: email,
+            from: variables_1.ADMIN_MAIL || "noreply@portfolio.com",
             subject: "Verification Mail",
-            message: "You are just a step away from accessing your research Pal account, We are sharing a verification code to access your account. The code is valid for 10 minutes and usable only once.",
-        }),
-    });
+            html: (0, VerificationMai_1.Email)({
+                Otp: `Your OTP: ${token}`,
+                userName: name,
+                subject: "Verification Mail",
+                message: "You are just a step away from accessing your research Pal account, We are sharing a verification code to access your account. The code is valid for 10 minutes and usable only once.",
+            }),
+        });
+    }
+    catch (error) {
+        console.error("Error sending verification mail:", error);
+    }
 });
 exports.sendVerificationMail = sendVerificationMail;

@@ -9,6 +9,9 @@ import {
   TestimonialsRouter,
 } from "./router";
 import { CheckDbConnection, Home } from "./controller/Check";
+import { GetAdminDetailsBySlug } from "./controller/Admin";
+import { HandleFileUpload } from "./controller/Upload";
+import { verifyLoginToken } from "./MiddleWare/TokenVerification";
 import bodyParser from "body-parser";
 
 const cors = require("cors");
@@ -26,6 +29,8 @@ app.get("/", Home);
 
 app.get("/check", CheckDbConnection);
 
+app.get("/portfolio/:slug", GetAdminDetailsBySlug);
+app.post("/upload", verifyLoginToken, HandleFileUpload);
 app.use("/get-admin", AdminRouter);
 app.use("/auth", AuthRouter);
 app.use("/projects", ProjectsRouter);

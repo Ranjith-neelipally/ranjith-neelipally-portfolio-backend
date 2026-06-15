@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetAdminDetails = void 0;
+exports.GetAdminDetailsBySlug = exports.GetAdminDetails = void 0;
 const Admin_1 = __importDefault(require("../../Modal/Admin"));
 const GetAdminDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.query;
@@ -40,3 +40,18 @@ const GetAdminDetails = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.GetAdminDetails = GetAdminDetails;
+const GetAdminDetailsBySlug = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { slug } = req.params;
+    try {
+        const admin = yield Admin_1.default.findOne({ slug: slug.toLowerCase() });
+        if (!admin) {
+            return res.status(404).json({ success: false, message: "Portfolio not found" });
+        }
+        const _a = admin.toObject(), { password, tokens } = _a, rest = __rest(_a, ["password", "tokens"]);
+        res.status(200).json({ success: true, data: rest });
+    }
+    catch (error) {
+        res.status(400).json({ success: false, error });
+    }
+});
+exports.GetAdminDetailsBySlug = GetAdminDetailsBySlug;

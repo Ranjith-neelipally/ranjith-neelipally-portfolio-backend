@@ -30,6 +30,19 @@ const AdminSchema = new mongoose_1.Schema({
     profilePic: {
         type: String,
     },
+    slug: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true,
+    },
+    aboutMeSection1: {
+        type: String,
+    },
+    aboutMeSection2: {
+        type: String,
+    },
     ProjectIds: [String],
     tokens: [String],
     skills: [String],

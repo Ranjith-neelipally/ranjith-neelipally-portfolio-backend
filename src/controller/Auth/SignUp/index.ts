@@ -6,16 +6,33 @@ export const HandleSignUp: RequestHandler = async (
   req: SignUpInterface,
   res
 ) => {
-  const { email, password, userName } = req.body;
-  const existingAdmin = await Admin.findOne();
+  const { email, password, userName, slug } = req.body;
   try {
-    if (existingAdmin) {
-      return res.status(400).json({ error: "Admin already exists" });
+    const existingEmail = await Admin.findOne({ email });
+    if (existingEmail) {
+      return res.status(400).json({ error: "Admin with this email already exists" });
     }
+
+    let finalSlug = slug;
+    if (!finalSlug) {
+      finalSlug = userName.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    } else {
+      finalSlug = finalSlug.toLowerCase().trim();
+      if (!/^[a-z0-9-]+$/.test(finalSlug)) {
+        return res.status(400).json({ error: "Slug must be URL-friendly (only lowercase alphanumeric and hyphens)" });
+      }
+    }
+
+    const existingSlug = await Admin.findOne({ slug: finalSlug });
+    if (existingSlug) {
+      return res.status(400).json({ error: "Slug is already in use" });
+    }
+
     const user = await Admin.create({
       email,
       password,
       userName,
+      slug: finalSlug,
     });
     if (user) {
       res.json({ message: "User created successfully" });

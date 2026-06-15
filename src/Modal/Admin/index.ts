@@ -11,6 +11,9 @@ export interface AdminDocument extends Document {
   skills?: string[];
   ProjectIds?: string[];
   testimonials?: string[];
+  slug: string;
+  aboutMeSection1?: string;
+  aboutMeSection2?: string;
 }
 
 interface PasswordVerificationMethod {
@@ -35,6 +38,19 @@ const AdminSchema = new Schema<AdminDocument, {}, PasswordVerificationMethod>(
       required: true,
     },
     profilePic: {
+      type: String,
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    aboutMeSection1: {
+      type: String,
+    },
+    aboutMeSection2: {
       type: String,
     },
     ProjectIds: [String],

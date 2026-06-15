@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import Admin from "../../Modal/Admin";
+
 export const GetAdminDetails: RequestHandler = async (req, res) => {
   const { email } = req.query;
 
@@ -14,3 +15,19 @@ export const GetAdminDetails: RequestHandler = async (req, res) => {
     res.status(400).json(error);
   }
 };
+
+export const GetAdminDetailsBySlug: RequestHandler = async (req, res) => {
+  const { slug } = req.params;
+
+  try {
+    const admin = await Admin.findOne({ slug: slug.toLowerCase() });
+    if (!admin) {
+      return res.status(404).json({ success: false, message: "Portfolio not found" });
+    }
+    const { password, tokens, ...rest } = admin.toObject();
+    res.status(200).json({ success: true, data: rest });
+  } catch (error) {
+    res.status(400).json({ success: false, error });
+  }
+};
+

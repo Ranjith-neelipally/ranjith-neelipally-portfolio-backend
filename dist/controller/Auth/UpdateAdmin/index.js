@@ -15,13 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateAdminDetails = void 0;
 const Admin_1 = __importDefault(require("../../../Modal/Admin"));
 const UpdateAdminDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, profilePic, userName } = req.body;
+    const { email, profilePic, userName, slug, aboutMeSection1, aboutMeSection2 } = req.body;
     try {
         const admin = yield Admin_1.default.findOne({ email });
         if (!admin) {
             return res.status(404).json({ error: "Admin not found!" });
         }
-        const changes = yield Admin_1.default.updateOne({ profilePic, userName });
+        const updateFields = { profilePic, userName, aboutMeSection1, aboutMeSection2 };
+        if (slug) {
+            const finalSlug = slug.toLowerCase().trim();
+            if (!/^[a-z0-9-]+$/.test(finalSlug)) {
+                return res.status(400).json({ error: "Slug must be URL-friendly (only lowercase alphanumeric and hyphens)" });
+            }
+            const existingSlug = yield Admin_1.default.findOne({ slug: finalSlug, email: { $ne: email } });
+            if (existingSlug) {
+                return res.status(400).json({ error: "Slug is already in use" });
+            }
+            updateFields.slug = finalSlug;
+        }
+        const changes = yield Admin_1.default.updateOne({ email }, updateFields);
         if (!changes) {
             return res.status(404).json({ error: "Admin not found!" });
         }

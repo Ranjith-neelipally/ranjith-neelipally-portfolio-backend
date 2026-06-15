@@ -11,4 +11,5 @@ export const {
   MAILTRAP_PASSWORD,
   
   ADMIN_MAIL,
+  BLOB_READ_WRITE_TOKEN,
 } = env;

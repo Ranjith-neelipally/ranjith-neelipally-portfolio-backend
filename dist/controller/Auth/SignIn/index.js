@@ -14,9 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HandleLogin = void 0;
 const Admin_1 = __importDefault(require("../../../Modal/Admin"));
-const Email_1 = require("../../../utils/Email");
-const VerificationCode_1 = __importDefault(require("../../../Modal/VerificationCode"));
-const helpers_1 = require("../../../utils/helpers");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const variables_1 = require("../../../utils/variables");
 const HandleLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
@@ -30,20 +29,22 @@ const HandleLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 res.status(403).json({ error: "Password mismatch" });
             }
             else {
-                const verificationToken = (0, helpers_1.generateRandomNumber)(6);
-                yield VerificationCode_1.default.create({
-                    owner: user._id,
-                    token: verificationToken,
-                });
-                (0, Email_1.sendVerificationMail)(verificationToken, {
-                    email: user.email,
-                    name: user.userName,
-                    userId: user._id.toString(),
-                });
+                const token = jsonwebtoken_1.default.sign({ userId: user._id }, variables_1.TOKEN_KEY);
+                if (!user.tokens) {
+                    user.tokens = [];
+                }
+                user.tokens.push(token);
                 yield user.save();
                 res.json({
-                    id: user._id,
-                    name: user.userName,
+                    message: "Logged in successfully",
+                    token: token,
+                    authToken: token,
+                    user: {
+                        id: user._id,
+                        userName: user.userName,
+                        email: user.email,
+                        slug: user.slug,
+                    }
                 });
             }
         }

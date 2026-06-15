@@ -21,23 +21,23 @@ export const HandleLogin: RequestHandler = async (
       if (!matched) {
         res.status(403).json({ error: "Password mismatch" });
       } else {
-        const verificationToken = generateRandomNumber(6);
-
-        await emailVerificationToken.create({
-          owner: user._id,
-          token: verificationToken,
-        });
-
-        sendVerificationMail(verificationToken, {
-          email: user.email,
-          name: user.userName,
-          userId: user._id.toString(),
-        });
+        const token = jwt.sign({ userId: user._id }, TOKEN_KEY);
+        if (!user.tokens) {
+          user.tokens = [];
+        }
+        user.tokens.push(token);
         await user.save();
 
         res.json({
-          id: user._id,
-          name: user.userName,
+          message: "Logged in successfully",
+          token: token,
+          authToken: token,
+          user: {
+            id: user._id,
+            userName: user.userName,
+            email: user.email,
+            slug: user.slug,
+          }
         });
       }
     }
