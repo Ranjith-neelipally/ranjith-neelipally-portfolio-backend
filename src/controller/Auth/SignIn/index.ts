@@ -42,6 +42,7 @@ export const HandleLogin: RequestHandler = async (
       }
     }
   } catch (error) {
-    res.status(500).json({ error: error });
+    console.error("SignIn Error:", error);
+    res.status(500).json({ error: error instanceof Error ? error.message : "Internal server error" });
   }
 };

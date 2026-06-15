@@ -40,6 +40,7 @@ export const HandleSignUp: RequestHandler = async (
       res.status(500).json({ error: "User not created" });
     }
   } catch (error) {
-    res.status(500).json({ error: error });
+    console.error("SignUp Error:", error);
+    res.status(500).json({ error: error instanceof Error ? error.message : "Internal server error" });
   }
 };

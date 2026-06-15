@@ -39,6 +39,7 @@ export const UpdateAdminDetails: RequestHandler = async (
       .status(200)
       .json({ message: `${count} details updated successfully` });
   } catch (error) {
-    res.status(500).json(error);
+    console.error("UpdateAdminDetails Error:", error);
+    res.status(500).json({ error: error instanceof Error ? error.message : "Internal server error" });
   }
 };
