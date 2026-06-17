@@ -2,6 +2,7 @@ import express from "express";
 import dbConnect from "./database";
 import Portfolio from "./Modal/Portfolio";
 import bodyParser from "body-parser";
+import { TOKEN_KEY } from "./utils/variables";
 
 const cors = require("cors");
 const app = express();
@@ -36,6 +37,10 @@ app.get("/api/portfolio", async (req, res) => {
 
 app.post("/api/portfolio", async (req, res) => {
   try {
+    const apiKey = req.headers["x-api-key"];
+    if (!apiKey || apiKey !== TOKEN_KEY) {
+      return res.status(401).json({ error: "Unauthorized. Missing or invalid X-API-Key header." });
+    }
     const { projects, experience, tools, now } = req.body;
     let portfolio = await Portfolio.findOne();
     if (portfolio) {
